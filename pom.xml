@@ -49,7 +49,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--e'lel-->
+        <!--el-->
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>

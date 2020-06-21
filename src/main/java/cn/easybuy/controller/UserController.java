@@ -35,6 +35,7 @@ public class UserController {
 
         System.out.println("11");
         System.out.println("22");
+        System.out.println("33");
         List<User> userList = userService.getUserList(1, 10);
         model.addAttribute("userList", userList);
         return "backend/user/userList";
