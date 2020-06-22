@@ -64,6 +64,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<User> getUserList(Integer currentPageNo, Integer pageSize) {
+        if (currentPageNo == null) {
+            currentPageNo=1;
+        }
         Page<User> page = new Page<>(currentPageNo, pageSize);
         baseMapper.selectPage(page, null);
         List<User> userList = page.getRecords();
