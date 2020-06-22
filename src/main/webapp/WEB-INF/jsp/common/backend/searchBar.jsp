@@ -6,7 +6,7 @@
 </script>
 <div class="top">
     <div class="logo">
-        <a href="${ctx}/Home?action=index"><img src="${ctx}/images/logo.png"></a>
+        <a href="${ctx}/home/index"><img src="${ctx}/images/logo.png"></a>
     </div>
     <div class="i_car">
         <div class="car_t">
