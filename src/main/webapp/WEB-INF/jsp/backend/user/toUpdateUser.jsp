@@ -25,7 +25,7 @@
                 </c:choose>
             </div>
             <br>
-            <form action="${ctx}/admin/user?action=updateUser" method="post" id="userAdd" onsubmit="return checkUser();">
+            <form action="${ctx}/admin/user/updeteuser" method="post" id="userAdd" onsubmit="return checkUser();"  >
                 <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="135" align="right">用户姓名</td>
@@ -87,10 +87,10 @@
                         <td>
                             <c:choose>
                                 <c:when test="${empty user.id || user.id==0}">
-                                    <input type="button" value="添加用户" class="s_btn" onclick="addUser();">
+                                    <input type="submit" value="添加用户" class="s_btn">
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="button" value="修改信息" class="s_btn"  onclick="addUser();">
+                                    <input type="submit" value="修改信息" class="s_btn" >
                                 </c:otherwise>
                             </c:choose>
                         </td>

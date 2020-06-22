@@ -54,12 +54,14 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
+
                         <td>
-                            <a href="${ctx}/admin/user?action=toUpdateUser&id=${temp.id}">修改</a>
+                            <a href="${ctx}/admin/user/updatepage?id=${temp.id}">修改</a>
                         </td>
+
                         <td>
                         	<c:if test="${sessionScope.loginUser.id!=temp.id}">
-                           	 <a href="javascript:void(0);" onclick="deleteUserId('${temp.id}');" target="_blank">删除</a>
+                           	 <a href="http://localhost:8001/admin/user/delete?id=${temp.id}"  onclick="DeleteUserId()">删除</a>
                         	</c:if>
                         </td>
                     </tr>
@@ -72,6 +74,11 @@
     <%@ include file="../../common/pre/footer.jsp" %>
 </div>
 </body>
+<script >
+    function DeleteUserId() {
+       alert("删除成功")
+    }
+</script>
 </html>
 
 

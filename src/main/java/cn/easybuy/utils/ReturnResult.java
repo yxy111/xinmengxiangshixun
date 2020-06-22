@@ -1,6 +1,7 @@
 package cn.easybuy.utils;
 
 import java.io.Serializable;
+import java.util.Map;
 
 
 public class ReturnResult implements Serializable{
@@ -31,6 +32,37 @@ public class ReturnResult implements Serializable{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * 返回成功状态
+     *
+     */
+    public static  ReturnResult success(String message, Map<String, Object> map) {
+        ReturnResult returnResult = new ReturnResult();
+        returnResult.setStatus(Constants.ReturnResult.SUCCESS);
+        returnResult.setMessage(message);
+        returnResult.setData(map);
+        return returnResult;
+    }
+    /**
+     * 返回成功状态
+     *
+     */
+    public static  ReturnResult success(String message) {
+        ReturnResult returnResult = new ReturnResult();
+        returnResult.setStatus(Constants.ReturnResult.SUCCESS);
+        returnResult.setMessage(message);
+        return returnResult;
+    }
+    /**
+     * 返回失败状态
+     */
+    public static  ReturnResult err(String message){
+        ReturnResult returnResult = new ReturnResult();
+        returnResult.setStatus(Constants.ReturnResult.FAIL);
+        returnResult.setMessage(message);
+        return returnResult;
     }
     /**
      * 返回成功状态

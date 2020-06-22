@@ -25,7 +25,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean add(User user) {
-
         int i = baseMapper.insert(user);
         if (i > 0) {
             return true;
@@ -37,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(User user) {
-        int i = baseMapper.deleteById(user);
+        int i = baseMapper.updateById(user);
         if (i > 0) {
             return true;
         } else {

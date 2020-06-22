@@ -3,13 +3,11 @@ package cn.easybuy.controller;
 
 import cn.easybuy.pojo.User;
 import cn.easybuy.service.UserService;
+import cn.easybuy.utils.ReturnResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,18 +27,46 @@ public class UserController {
     private UserService userService;
 
 
+    //分页查询用户信息
     @GetMapping("list")
     public String hello(Model model)
     {
-
-        System.out.println("11");
-        System.out.println("22");
-        System.out.println("33");
-        System.out.println("55");
-        System.out.println(111);
         List<User> userList = userService.getUserList(1, 10);
         model.addAttribute("userList", userList);
         return "backend/user/userList";
+    }
+    //根据id删除用户
+    @GetMapping ("delete")
+    public String deleById(@RequestParam(value = "id") Integer id) {
+        userService.deleteUserById(id);
+        return "redirect:/admin/user/list";
+    }
+
+    // 查询用户信息 跳转到用户修改页面
+    @GetMapping ("updatepage")
+    public String updatepage(@RequestParam(value = "id") Integer id,Model model) {
+        User user = userService.getUser(id, "");
+        model.addAttribute("user", user);
+        return "/backend/user/toUpdateUser";
+    }
+
+    //根据id修改用户信息 或者添加用户
+    @PostMapping("updeteuser")
+    public String updeteuser(User user) {
+        if(user.getId()!=null)
+        {
+            userService.update(user);
+        }
+        else{
+            userService.add(user);
+        }
+        return "redirect:/admin/user/list";
+    }
+
+    //添加用户 跳转到用户添加页面
+    @GetMapping ("AddUser")
+    public String AddUser(Model model) {
+        return "/backend/user/toUpdateUser";
     }
 
 }
