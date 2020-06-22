@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author 罗阳
@@ -20,9 +20,14 @@ public interface UserService extends IService<User> {
 
     public boolean deleteUserById(Integer userId);
 
-    public User getUser(Integer userId,String loginName);
+    public User getUser(Integer userId, String loginName);
 
     public List<User> getUserList(Integer currentPageNo, Integer pageSize);
 
     public int count();
+
+    /**
+     * 修改人：李凤强
+     */
+    User login(String loginName, String password);
 }

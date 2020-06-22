@@ -1,11 +1,14 @@
 package cn.easybuy.controller;
 
+import cn.easybuy.pojo.User;
+import cn.easybuy.service.UserService;
+import cn.easybuy.utils.ReturnResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.stream.Stream;
 
 
@@ -16,6 +19,9 @@ import java.util.stream.Stream;
  */
 @Controller
 public class LoginRegistrationController {
+    @Resource
+    UserService userService;
+
     @GetMapping("login")
     public String login() {
         return "/pre/login";
@@ -26,4 +32,14 @@ public class LoginRegistrationController {
         return "/pre/register";
     }
 
+    @ResponseBody
+    @PostMapping("login")
+    public ReturnResult login(String loginName, String password, HttpSession session) {
+        User user = userService.login(loginName, password);
+        if (user != null) {
+            session.setAttribute("loginUser", user);
+            return ReturnResult.success("登陆成功");
+        }
+        return ReturnResult.err("登陆失败，用户名或密码错误");
+    }
 }
