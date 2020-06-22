@@ -19,7 +19,7 @@
             <div class="nav_t">全部商品分类</div>
             <div class="leftNav">
                 <ul>
-                    <c:forEach items="${productCategoryVoList}" var="temp" >
+                    <c:forEach items="${productCategoryVoList}" var="temp">
                         <li>
                             <div class="fj">
                         <span class="n_img"><span></span>
@@ -31,10 +31,10 @@
                                     <c:forEach items="${temp.productCategoryVoList}" var="vo">
                                         <div class="zj_l_c">
                                             <h2>
-                                                <a href="${ctx}/Product?action=queryProductList&category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
+                                                <a href="${ctx}/product?category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
                                             </h2>
                                             <c:forEach items="${vo.productCategoryVoList}" var="vo2">
-                                                <a href="${ctx}/Product?action=queryProductList&category=${vo2.productCategory.id}&level=3">${vo2.productCategory.name}</a> |
+                                                <a href="${ctx}/product?category=${vo2.productCategory.id}&level=3">${vo2.productCategory.name}</a> |
                                             </c:forEach>
                                         </div>
                                     </c:forEach>
@@ -48,7 +48,9 @@
         <ul class="menu_r">
             <li><a href="${ctx}/home/index">首页</a></li>
             <c:forEach items="${productCategoryVoList}" var="temp">
-                <li><a href="${ctx}/Product?action=queryProductList&level=1&category=${temp.productCategory.id}">${temp.productCategory.name}</a></li>
+                <li>
+                    <a href="${ctx}/product?&level=1&category=${temp.productCategory.id}">${temp.productCategory.name}</a>
+                </li>
             </c:forEach>
         </ul>
         <div class="m_ad">中秋送好礼！</div>
@@ -89,7 +91,7 @@
             <ul>
                 <c:forEach items="${news}" var="temp">
                     <li><span>[ 公告 ]</span>
-                        <a href="${ctx}/admin/news?action=newsDeatil&id=${temp.id}">${temp.title}</a>
+                        <a href="${ctx}/admin/news/getnoe?id=${temp.id}">${temp.title}</a>
                     </li>
                 </c:forEach>
             </ul>
@@ -148,7 +150,7 @@
                 <div class="fresh_txt">
                     <div class="fresh_txt_c">
                         <c:forEach items="${temp.productCategoryVoList}" var="vo">
-                            <a href="${ctx}/Product?action=queryProductList&category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
+                            <a href="${ctx}/product?category=${vo.productCategory.id}&level=2">${vo.productCategory.name}</a>
                         </c:forEach>
                     </div>
                 </div>
@@ -162,8 +164,8 @@
                                 <font>￥<span>${productVo.price}</span></font> &nbsp;
                             </div>
                             <div class="img">
-                                <a href="${ctx}/Product?action=queryProductDeatil&id=${productVo.id}">
-                                    <img src="${ctx}/files/${productVo.fileName}" width="185"  height="155"/>
+                                <a target="_blank" href="${ctx}/product/${productVo.id}">
+                                    <img src="${ctx}/files/${productVo.fileName}" width="185" height="155"/>
                                 </a>
                             </div>
                         </li>

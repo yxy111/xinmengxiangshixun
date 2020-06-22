@@ -3,6 +3,7 @@ package cn.easybuy.service.impl;
 import cn.easybuy.pojo.Product;
 import cn.easybuy.mapper.ProductMapper;
 import cn.easybuy.service.ProductService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 /**
  * <p>
- *  商品查询
+ * 商品查询
  * </p>
  *
  * @author 罗阳
@@ -36,7 +37,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Override
     public Product getProductById(Integer productId) {
-        return null;
+        return baseMapper.selectById(productId);
     }
 
     @Override
@@ -52,5 +53,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Override
     public boolean updateStock(Integer productId, Integer stock) {
         return false;
+    }
+
+    @Override
+    public List<Product> getProductList(Integer category, Integer level) {
+        switch (level) {
+            case 1:
+                return baseMapper.selectByCategoryLevel1Id(category);
+            case 2:
+                return baseMapper.selectByCategoryLevel2Id(category);
+            default:
+                return baseMapper.selectByCategoryLevel3Id(category);
+        }
+    }
+
+    @Override
+    public List<Product> selectProductByFuzzyName(String fuzzyName) {
+        return baseMapper.selectList(new QueryWrapper<Product>()
+                .like("name", fuzzyName)
+        );
     }
 }

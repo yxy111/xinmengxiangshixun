@@ -38,14 +38,14 @@
                     <c:forEach items="${productList}" var="temp">
                         <li>
                             <div class="img">
-                                <a href="${ctx}/Product?action=queryProductDeatil&id=${temp.id}" target="_blank">
+                                <a href="${ctx}/product/${temp.id}" target="_blank">
                                     <img src="${ctx}/files/${temp.fileName}" width="210" height="185"/>
                                 </a>
                             </div>
                             <div class="price">
                                 <font>￥<span>${temp.price}</span></font>
                             </div>
-                            <div class="name"><a href="${ctx}/Product?action=queryProductDeatil&id=${temp.id}">${temp.name}</a></div>
+                            <div class="name"><a href="${ctx}/product/${temp.id}">${temp.name}</a></div>
                             <div class="carbg">
                                 <a href="javascript:void(0);" class="ss" onclick="addFavorite('${temp.id}')">收藏</a>
                                 <a href="javascript:void(0);" class="j_car" onclick="addCartByParam('${temp.id}',1);">加入购物车</a>
