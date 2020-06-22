@@ -116,22 +116,53 @@ function settlement3() {
             return;
         }
     }
-    $.ajax({
-        url: contextPath + "/cart/settlement3",
-        method: "post",
-        data: {
-            addressId: addressId,
-            newAddress: newAddress,
-            newRemark: newRemark
-        },
-        mimeType: "multipart/form-data",
-        success: function (jsonStr) {
-            if (jsonStr.substr(0, 1) === "{") {
-                var result = eval("(" + jsonStr + ")");
-                showMessage(result.message);
-            } else {
-                $("#settlement").html(jsonStr);
-            }
+    // $.ajax({
+    //     url: contextPath + "/cart/settlement3",
+    //     method: "post",
+    //     data: {
+    //         addressId: addressId,
+    //         newAddress: newAddress,
+    //         newRemark: newRemark
+    //     },
+    //     mimeType: "multipart/form-data",
+    //     success: function (jsonStr) {
+    //         if (jsonStr.substr(0, 1) === "{") {
+    //             var result = eval("(" + jsonStr + ")");
+    //             showMessage(result.message);
+    //         } else {
+    //             $("#settlement").html(jsonStr);
+    //         }
+    //     }
+    // });
+    // var form = new FormData();
+    // form.append("addressId", addressId);
+    // form.append("newAddress", newAddress);
+    // form.append("newRemark", newRemark);
+    //
+    // var settings = {
+    //     "url": "/cart/settlement3",
+    //     "method": "POST",
+    //     "timeout": 0,
+    //     "processData": false,
+    //     "mimeType": "multipart/form-data",
+    //     "contentType": false,
+    //     "data": form
+    // };
+
+    var settings = {
+        "url": "/cart/settlement3?addressId=" + addressId + "&newAddress=" + newAddress + "&newRemark=" + newRemark,
+        "method": "GET",
+        "timeout": 0,
+    };
+
+    console.log(settings);
+
+    $.ajax(settings).done(function (jsonStr) {
+        if (jsonStr.substr(0, 1) === "{") {
+            var result = eval("(" + jsonStr + ")");
+            showMessage(result.message);
+        } else {
+            $("#settlement").html(jsonStr);
         }
     });
 }

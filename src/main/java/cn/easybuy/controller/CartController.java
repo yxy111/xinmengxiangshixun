@@ -1,22 +1,25 @@
 package cn.easybuy.controller;
 
-import cn.easybuy.mapper.ProductCategoryMapper;
-import cn.easybuy.mapper.ProductMapper;
+import cn.easybuy.mapper.*;
 import cn.easybuy.pojo.Order;
+import cn.easybuy.pojo.OrderDetail;
 import cn.easybuy.pojo.User;
 import cn.easybuy.pojo.UserAddress;
 import cn.easybuy.pojo.vo.ProductCategoryVo;
 import cn.easybuy.service.ProductCategoryService;
 import cn.easybuy.service.UserAddressService;
 import cn.easybuy.utils.ReturnResult;
+import cn.easybuy.utils.SecurityUtils;
 import cn.easybuy.utils.ShoppingCart;
 import cn.easybuy.utils.ShoppingCartItem;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 李凤强
@@ -32,6 +35,15 @@ public class CartController {
 
     @Resource
     UserAddressService userAddressService;
+
+    @Resource
+    UserAddressMapper userAddressMapper;
+
+    @Resource
+    OrderMapper orderMapper;
+
+    @Resource
+    OrderDetailMapper orderDetailMapper;
 
     @GetMapping
     public String cart(Model model) {
@@ -55,21 +67,40 @@ public class CartController {
     /**
      * 提交订单
      */
-    @PostMapping("settlement3")
+    @GetMapping("settlement3")
     public String settlement3(
             @SessionAttribute("loginUser") User user,
             @SessionAttribute("cart") ShoppingCart cart,
             @RequestParam("addressId") Integer addressId,
             @RequestParam("newAddress") String newAddress,
-            @RequestParam("newRemark") String newRemark
+            @RequestParam("newRemark") String newRemark,
+            Model model
     ) {
-
-//        for (ShoppingCartItem item : cart.items) {
-//            Order.builder()
-//                    .userId(user.getId())
-//                    .loginName(user.getLoginName())
-//                    .userAddress()
-//        }
+        UserAddress userAddress;
+        if (addressId == -1) {
+            userAddress = UserAddress.builder().address(newAddress).remark(newRemark).build();
+        } else {
+            userAddress = userAddressMapper.selectById(addressId);
+        }
+        Order order = Order.builder()
+                .userId(user.getId())
+                .loginName(user.getLoginName())
+                .userAddress(userAddress.getAddress())
+                .cost(cart.getTotalCost())
+                .serialNumber(SecurityUtils.md5Hex(String.valueOf(System.currentTimeMillis())))
+                .build();
+        orderMapper.insert(order);
+        for (ShoppingCartItem item : cart.items) {
+            OrderDetail orderDetail = OrderDetail.builder()
+                    .orderId(order.getId())
+                    .productId(item.getProduct().getId())
+                    .quantity(item.getQuantity())
+                    .cost(item.getCost())
+                    .build();
+            orderDetailMapper.insert(orderDetail);
+        }
+        cart.items.clear();
+        model.addAttribute("currentOrder", order);
         return "/pre/settlement/settlement3";
     }
 
