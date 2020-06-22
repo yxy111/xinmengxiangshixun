@@ -35,6 +35,7 @@ public class UserController {
         List<User> userList = userService.getUserList(currentPage, 10);
         Pager pager = new Pager(1, 10, currentPage,"admin/user/list?");
         model.addAttribute("userList", userList);
+        model.addAttribute("pager", pager);
         return "backend/user/userList";
     }
     //根据id删除用户
