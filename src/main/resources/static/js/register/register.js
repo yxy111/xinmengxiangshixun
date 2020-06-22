@@ -57,27 +57,26 @@ function register() {
     	showMessage("身份证号格式不正确");
         return;
     }
-    
+
     $.ajax({
-        url: contextPath + "/Register",
+        url: contextPath + "/register",
         method: "post",
+        mimeType: "multipart/form-data",
         data: {
-            action: "login",
             loginName: loginName,
             userName: userName,
             password: password,
             sex: sex,
             email: email,
             mobile: mobile,
-            action: 'saveUserToDatabase',
             identityCode: identityCode,
-            address: address
+            address: address,
         },
         success: function (jsonStr) {
             var result = eval("(" + jsonStr + ")");
-            if (result.status == 1) {
+            if (result.status === 1) {
                 showMessage(result.message);
-                window.location.href = contextPath + "/Login?action=toLogin";
+                window.location.href = contextPath + "/login";
             } else {
                 showMessage(result.message);
             }
@@ -87,27 +86,28 @@ function register() {
 
 
 function checkMail(mail) {
-  var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (filter.test(mail)) 
-	  return true;
-  else {
-	 return false;}
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(mail))
+        return true;
+    else {
+        return false;
+    }
 }
 
 function checkMobile(phone) {
-  var filter  = /^\d{5,11}$/;
-  if (filter.test(phone)) 
-	  return true;
-  else {
-	 return false;
-  }
+    var filter = /^\d{5,11}$/;
+    if (filter.test(phone))
+        return true;
+    else {
+        return false;
+    }
 }
 
 function checkIdentityCode(identityCode) {
-	  var filter  = /^\w{18}$/;
-	  if (filter.test(identityCode)) 
-		  return true;
-	  else {
-		 return false;
-	  }
+    var filter = /^\w{18}$/;
+    if (filter.test(identityCode))
+        return true;
+    else {
+        return false;
+    }
 }

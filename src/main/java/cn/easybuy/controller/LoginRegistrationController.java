@@ -42,4 +42,10 @@ public class LoginRegistrationController {
         }
         return ReturnResult.err("登陆失败，用户名或密码错误");
     }
+
+    @ResponseBody
+    @PostMapping("register")
+    public ReturnResult register(User user) {
+        return userService.register(user);
+    }
 }

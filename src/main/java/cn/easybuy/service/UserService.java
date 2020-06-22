@@ -1,6 +1,7 @@
 package cn.easybuy.service;
 
 import cn.easybuy.pojo.User;
+import cn.easybuy.utils.ReturnResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -30,4 +31,9 @@ public interface UserService extends IService<User> {
      * 修改人：李凤强
      */
     User login(String loginName, String password);
+
+    /**
+     * 修改人：李凤强
+     */
+    ReturnResult register(User user);
 }
