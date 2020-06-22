@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2020-06-20
  */
 @Controller
-@RequestMapping("/admin/product")
+@RequestMapping("/product")
 public class ProductController {
     @Resource
     ProductService productService;
@@ -33,8 +33,7 @@ public class ProductController {
     @Resource
     ProductCategoryService productCategoryService;
 
-    //分页查询用户信息
-  //  @ResponseBody
+    //分页查询商品信息
     @GetMapping("list")
     public String hello(Model model, Integer currentPage)
     {
@@ -44,10 +43,9 @@ public class ProductController {
         Page<Product> page = new Page<>(currentPage, 5);
         productService.page(page,null);
         List<Product> list = page.getRecords();
-        Pager pager = new Pager(page.getPages(), 5, currentPage,"admin/product/list?");
+        Pager pager = new Pager(page.getPages(), 5, currentPage,"product/list?");
         model.addAttribute("list", list);
         model.addAttribute("pager", pager);
- //       return productList;
         return "/backend/product/productList";
     }
 
