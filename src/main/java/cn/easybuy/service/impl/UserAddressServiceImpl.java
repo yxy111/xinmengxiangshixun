@@ -3,6 +3,7 @@ package cn.easybuy.service.impl;
 import cn.easybuy.pojo.UserAddress;
 import cn.easybuy.mapper.UserAddressMapper;
 import cn.easybuy.service.UserAddressService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,10 @@ import java.util.List;
 public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress> implements UserAddressService {
 
     @Override
-    public List<UserAddress> queryUserAdressList(Integer id)  {
-        return null;
+    public List<UserAddress> queryUserAdressList(Integer userId)  {
+        return baseMapper.selectList(new QueryWrapper<UserAddress>()
+                .eq("userId", userId)
+        );
     }
 
     @Override
