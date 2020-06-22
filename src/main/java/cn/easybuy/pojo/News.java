@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.sql.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,8 +42,7 @@ public class News implements Serializable {
     private String content;
 
     @ApiModelProperty(value = "创建时间")
-      @TableField(value = "createTime", fill = FieldFill.INSERT)
-    private String createTime;
-
+    @TableField(value = "createTime")
+    private Date createTime;
 
 }

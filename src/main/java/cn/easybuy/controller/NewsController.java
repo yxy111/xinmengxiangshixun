@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,29 +32,23 @@ public class NewsController {
     private NewsServiceImpl newsService;
 
     @GetMapping("allnew")
-    public  String allnews(Integer currentPageNo, Model model)
+    public  String allnews(Integer currentPage, Model model)
     {
-        try{
-            System.out.println("11111111");
-            Page<News> page = new Page<>(currentPageNo, 10);
-            newsService.page(page,null);
-            List<News> newsList = page.getRecords();
-            System.out.println(newsList.toString());
-            long total = page.getTotal();
-            Pager pager=new Pager(total,10,currentPageNo);
-
-            model.addAttribute("newsList", newsList);
-            model.addAttribute("pager", pager);
-
-        }catch (Exception e)
-        {
-            System.out.println(e.getMessage()+"111111111");
-        }
-
-
-        return "/backend/news/newsList";
+        Map<String, Object> map = newsService.queryNewsList(currentPage, 10);
+        model.addAttribute("newsList", map.get("newsList"));
+        model.addAttribute("pager", map.get("pager"));
+        return  "/backend/news/newsList";
 
     }
+    @GetMapping("getnoe")
+    public  String getnoe(Integer id, Model model)
+    {
+        News news = newsService.getById(id);
+        model.addAttribute("news", news);
+        return  "/backend/news/newsDetail";
+
+    }
+
 
 }
 

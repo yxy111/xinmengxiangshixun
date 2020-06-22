@@ -5,6 +5,7 @@ import cn.easybuy.pojo.News;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -42,8 +43,8 @@ public interface NewsService extends IService<News> {
      * @param
      * @return
      */
-    List<News> queryNewsList(Integer currentPageNo,
-                             Integer pageSize);
+    Map<String, Object> queryNewsList(Integer currentPageNo,
+                                      Integer pageSize);
     /***
      * 查询数目
      * @param

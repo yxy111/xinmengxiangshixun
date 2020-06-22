@@ -2,6 +2,7 @@ package cn.easybuy.controller;
 
 
 import cn.easybuy.pojo.User;
+import cn.easybuy.pojo.vo.Pager;
 import cn.easybuy.service.UserService;
 import cn.easybuy.utils.ReturnResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,10 @@ public class UserController {
 
     //分页查询用户信息
     @GetMapping("list")
-    public String hello(Model model)
+    public String hello(Model model,Integer currentPage)
     {
-        List<User> userList = userService.getUserList(1, 10);
+        List<User> userList = userService.getUserList(currentPage, 10);
+        Pager pager = new Pager(1, 10, currentPage,"admin/user/list?");
         model.addAttribute("userList", userList);
         return "backend/user/userList";
     }
