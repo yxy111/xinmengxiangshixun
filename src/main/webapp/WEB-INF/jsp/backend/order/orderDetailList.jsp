@@ -24,18 +24,18 @@
           <td width="25%">数量</td>
           <td width="25%">价格</td>
         </tr>
-        <c:forEach items="${orderDetailList}" var="temp">
+        <c:forEach items="${orderList[0].list}" var="temp">
           <tr>
             <td>
-              <a href="${ctx}/Product?action=queryProductDeatil&id=${temp.product.id}" target="_blank">
-              ${temp.product.name}
+              <a href="${ctx}/Product?action=queryProductDeatil&id=${temp.id1}" target="_blank">
+              ${temp.name}
               </a>
             </td>
             <td>
-              <img src="${ctx}/files/${temp.product.fileName}" width="50" height="50">
+              <img src="${ctx}/files/${temp.fileName}" width="50" height="50">
             </td>
             <td>${temp.quantity}</td>
-            <td>${temp.cost}</td>
+            <td>${temp.price}</td>
           </tr>
         </c:forEach>
         </tbody>
