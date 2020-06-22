@@ -27,7 +27,7 @@
         <c:forEach items="${orderList[0].list}" var="temp">
           <tr>
             <td>
-              <a href="${ctx}/Product?action=queryProductDeatil&id=${temp.id1}" target="_blank">
+              <a href="${ctx}/product/${temp.id1}" target="_blank">
               ${temp.name}
               </a>
             </td>

@@ -7,6 +7,7 @@ import cn.easybuy.pojo.vo.Pager;
 import cn.easybuy.pojo.vo.ProductCategoryVo;
 import cn.easybuy.service.ProductCategoryService;
 import cn.easybuy.service.ProductService;
+import cn.easybuy.utils.ReturnResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,6 @@ import java.util.List;
  * <p>
  * 前端控制器
  * </p>
- *
  * @author 罗阳
  * @since 2020-06-20
  */
@@ -29,13 +29,12 @@ import java.util.List;
 public class ProductController {
     @Resource
     ProductService productService;
-
     @Resource
     ProductCategoryService productCategoryService;
 
     //分页查询商品信息
     @GetMapping("list")
-    public String hello(Model model, Integer currentPage)
+    public String hello(Model model, @RequestParam(required = false) Integer currentPage)
     {
         if (currentPage == null) {
             currentPage=1;
@@ -48,8 +47,17 @@ public class ProductController {
         model.addAttribute("pager", pager);
         return "/backend/product/productList";
     }
+    //删除一个商品
+    @ResponseBody
+    @GetMapping("deleteOneProduct/{id}")
+    public ReturnResult deleteOneProduct(@PathVariable Integer id)
+    {
+        System.out.println("11111111111111111");
+        boolean b = productService.removeById(id);
+        return ReturnResult.success("删除成功");
+    }
 
-    @GetMapping("{id}")
+    @PostMapping("{id}")
     public String product(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getProductById(id);
         List<ProductCategoryVo> vos = productCategoryService.queryAllProductCategoryList();

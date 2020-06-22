@@ -177,23 +177,19 @@ function checkProduct() {
 }
 //检查用户
 function deleteById(id) {
-	var bool=window.confirm("确认删除此商品信息么?");
-	if(bool){
-		$.ajax({
-	        url: contextPath + "/admin/product",
-	        method: "post",
-	        data: {
-	            id: id,
-	            action: "deleteById"
-	        },
-	        success: function (jsonStr) {
-	            var result = eval("(" + jsonStr + ")");
-	            if (result.status == 1) {
-	                window.location.reload();
-	            }
-	        }
-	    });
-	}
+    if(confirm("确定删除吗？"))
+    {
+        var settings = {
+            "url": "http://localhost:8001/product/deleteOneProduct/"+id,
+            "method": "GET"
+        };
+        $.ajax(settings).done(function (response) {
+            window.location.reload();
+            alert("删除成功")
+            console.log(response);
+        });
+    }
+
 }
 /**
  * 检查用户

@@ -42,7 +42,7 @@
                   <tr>
                     <td>${temp1.name}</td>
                     <td>
-                      <a href="${ctx}/Product?action=queryProductDeatil&id=${temp1.id1}" target="_blank">
+                      <a href="${ctx}/product/${temp1.id1}" target="_blank">
                         <img src="${ctx}/files/${temp1.fileName}" width="50" height="50">
                       </a>
                     </td>
