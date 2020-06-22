@@ -15,7 +15,7 @@
     <div class="left_m">
         <div class="left_m_t t_bg2">会员中心</div>
         <ul>
-            <li><a href="${ctx}/admin/user?action=index"  <c:if test="${menu==2}"> class="now" </c:if>>用户信息</a></li>
+            <li><a href="${ctx}/admin/user/getone"  <c:if test="${menu==2}"> class="now" </c:if>>用户信息</a></li>
             <c:if test="${sessionScope.loginUser.type==1}">
             	<li><a href="${ctx}/admin/user/list"  <c:if test="${menu==8}"> class="now" </c:if>>用户列表</a></li>
             </c:if>
@@ -34,7 +34,7 @@
     <div class="left_m">
         <div class="left_m_t t_bg2">资讯中心</div>
         <ul>
-            <li><a href="${ctx}/admin/news?action=queryNewsList"  <c:if test="${menu==7}"> class="now" </c:if>>资讯列表</a></li>
+            <li><a href="${ctx}/admin/news/allnew"  <c:if test="${menu==7}"> class="now" </c:if>>资讯列表</a></li>
         </ul>
     </div>
 </div>

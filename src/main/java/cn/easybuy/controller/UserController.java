@@ -69,5 +69,10 @@ public class UserController {
         return "/backend/user/toUpdateUser";
     }
 
+    //查询单个用户
+    @GetMapping ("getone")
+    public String getone(Model model) {
+        return "/backend/user/userInfo";
+    }
 }
 

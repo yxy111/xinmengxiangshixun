@@ -4,6 +4,7 @@ import cn.easybuy.params.NewsParams;
 import cn.easybuy.pojo.News;
 import cn.easybuy.mapper.NewsMapper;
 import cn.easybuy.service.NewsService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

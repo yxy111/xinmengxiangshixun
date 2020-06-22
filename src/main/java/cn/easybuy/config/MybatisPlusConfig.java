@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@EnableTransactionManagement  //能够使用声明式事务管理
+@EnableTransactionManagement(proxyTargetClass = true)  //能够使用声明式事务管理
 @Configuration
 @MapperScan("cn.easybuy.mapper")
 public class MybatisPlusConfig {
