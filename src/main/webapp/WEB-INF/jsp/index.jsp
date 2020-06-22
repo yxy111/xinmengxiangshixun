@@ -19,12 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  
+
   <body>
   <%
 	  Object obj=request.getAttribute("productCategoryVoList");
 	  if(obj==null){
-	    response.sendRedirect(request.getContextPath()+"/Home?action=index");
+	    response.sendRedirect(request.getContextPath()+"/home/index");
 	  }
   %>
   
