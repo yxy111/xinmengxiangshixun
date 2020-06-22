@@ -41,7 +41,7 @@
             </ul>
             <div class="price_sum">共计&nbsp;<font color="#ff4e00">￥</font><span>${sessionScope.cart.sum}</span></div>
             <c:if test="${sessionScope.loginUser==null}">
-                <div class="price_a"><a href="${ctx}/Login?action=toLogin">去登录</a></div>
+                <div class="price_a"><a href="${ctx}/login">去登录</a></div>
             </c:if>
             <c:if test="${sessionScope.loginUser!=null}">
                 <div class="price_a"><a href="${ctx}/Cart?action=toSettlement">去结算</a></div>

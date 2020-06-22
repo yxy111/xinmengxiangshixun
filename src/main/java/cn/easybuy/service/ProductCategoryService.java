@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author 罗阳
@@ -18,10 +18,12 @@ import java.util.List;
 public interface ProductCategoryService extends IService<ProductCategory> {
     /**
      * 根据id查询商品分类
+     *
      * @param id
      * @return
      */
     public ProductCategory getById(Integer id);
+
     /**
      * 查询商品分类列表
      *
@@ -29,6 +31,7 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      */
     public List<ProductCategory> queryProductCategoryList(Integer currentPageNo,
                                                           Integer pageSize);
+
     /**
      * 查询数目
      *
@@ -36,24 +39,27 @@ public interface ProductCategoryService extends IService<ProductCategory> {
      */
     public int queryProductCategoryCount(Integer currentPageNo,
                                          Integer pageSize);
+
     /**
      * 修改商品分类
-     *
      */
     public void modifyProductCategory(ProductCategory productCategory);
+
     /**
      * 添加商品分类
-     *
      */
     public void addProductCategory(ProductCategory productCategory);
+
     /**
      * 根据id删除
+     *
      * @param id
      */
     public void deleteById(Integer id);
+
     /**
      * 查询全部的商品分类
-     * @return
+     * 作者：李凤强
      */
     public List<ProductCategoryVo> queryAllProductCategoryList();
 }

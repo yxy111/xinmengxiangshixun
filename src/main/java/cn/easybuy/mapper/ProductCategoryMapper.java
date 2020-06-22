@@ -20,7 +20,7 @@ import java.util.List;
 public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
     /**
      * 查询这个类型所有的分类
-     * 修改人：李凤强
+     * 作者：李凤强
      *
      * @param type 分类级别
      */
@@ -36,7 +36,7 @@ public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
 
     /**
      * 查询这个这个分类下所有子类，并根据级别查询
-     * 修改人：李凤强
+     * 作者：李凤强
      *
      * @param parentId 分类的父类
      * @param type     分类的级别

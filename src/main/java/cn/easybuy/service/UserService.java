@@ -28,12 +28,12 @@ public interface UserService extends IService<User> {
     public int count();
 
     /**
-     * 修改人：李凤强
+     * 作者：李凤强
      */
     User login(String loginName, String password);
 
     /**
-     * 修改人：李凤强
+     * 作者：李凤强
      */
     ReturnResult register(User user);
 }
