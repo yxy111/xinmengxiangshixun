@@ -1,6 +1,7 @@
 package cn.easybuy.controller;
 
 import cn.easybuy.pojo.vo.ProductCategoryVo;
+import cn.easybuy.service.NewsService;
 import cn.easybuy.service.ProductCategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,13 @@ public class HomeController {
     @Resource
     ProductCategoryService productCategoryService;
 
+    @Resource
+    NewsService newsService;
+
     @GetMapping("index")
     public String index(Model model) {
         model.addAttribute("productCategoryVoList", productCategoryService.queryAllProductCategoryList());
+        model.addAttribute("news", newsService.list());
         return "/pre/index";
     }
 }
