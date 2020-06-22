@@ -2,6 +2,7 @@ package cn.easybuy.service.impl;
 
 import cn.easybuy.pojo.vo.OrderVo;
 import cn.easybuy.pojo.vo.Pager;
+import cn.easybuy.pojo.vo.commodityVo;
 import cn.easybuy.utils.ShoppingCart;
 import cn.easybuy.pojo.Order;
 import cn.easybuy.mapper.OrderMapper;
@@ -102,11 +103,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public Map<String, Object> orderDetails(Integer orderId) {
         QueryWrapper<OrderVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("id", orderId);
-        Page<OrderVo> page = new Page<>();
+        queryWrapper.eq("o1.id", orderId);
+        Page<OrderVo> page = new Page<>(1,999);
         List<OrderVo> orderList = baseMapper.getOneOrder1(queryWrapper,page);
         Map<String, Object> map = new HashMap<>();
         map.put("orderList", orderList);
-        return null;
+        return map;
     }
 }

@@ -52,11 +52,8 @@ public class OrderController {
     {
         Map<String,Object> map= orderService.orderDetails(orderId);
         model.addAttribute("orderList", map.get("orderList"));
-        return "/backend/order/orderList";
-
+        return "/backend/order/orderDetailList";
     }
-
-
 
 }
 
