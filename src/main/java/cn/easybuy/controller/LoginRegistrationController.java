@@ -32,6 +32,12 @@ public class LoginRegistrationController {
         return "/pre/register";
     }
 
+    @GetMapping("logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loginUser");
+        return "redirect:/login";
+    }
+
     @ResponseBody
     @PostMapping("login")
     public ReturnResult login(String loginName, String password, HttpSession session) {
