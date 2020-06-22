@@ -2,16 +2,15 @@ package cn.easybuy.controller;
 
 
 import cn.easybuy.pojo.Product;
+import cn.easybuy.pojo.User;
+import cn.easybuy.pojo.vo.Pager;
 import cn.easybuy.pojo.vo.ProductCategoryVo;
 import cn.easybuy.service.ProductCategoryService;
 import cn.easybuy.service.ProductService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.annotation.Resources;
@@ -26,13 +25,31 @@ import java.util.List;
  * @since 2020-06-20
  */
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/admin/product")
 public class ProductController {
     @Resource
     ProductService productService;
 
     @Resource
     ProductCategoryService productCategoryService;
+
+    //分页查询用户信息
+  //  @ResponseBody
+    @GetMapping("list")
+    public String hello(Model model, Integer currentPage)
+    {
+        if (currentPage == null) {
+            currentPage=1;
+        }
+        Page<Product> page = new Page<>(currentPage, 5);
+        productService.page(page,null);
+        List<Product> list = page.getRecords();
+        Pager pager = new Pager(page.getPages(), 5, currentPage,"admin/product/list?");
+        model.addAttribute("list", list);
+        model.addAttribute("pager", pager);
+ //       return productList;
+        return "/backend/product/productList";
+    }
 
     @GetMapping("{id}")
     public String product(@PathVariable("id") Integer id, Model model) {

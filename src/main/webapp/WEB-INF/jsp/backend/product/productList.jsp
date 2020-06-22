@@ -25,7 +25,7 @@
           <td width="10%">价格</td>
           <td width="10%" colspan="2">操作</td>
         </tr>
-        <c:forEach items="${productList}" var="temp">
+        <c:forEach items="${list}" var="temp">
           <tr>
             <td>${temp.name}</td>
             <td>
