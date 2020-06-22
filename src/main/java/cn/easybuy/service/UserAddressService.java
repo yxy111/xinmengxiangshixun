@@ -16,11 +16,11 @@ import java.util.List;
 public interface UserAddressService extends IService<UserAddress> {
     /**
      * 根据loginName 查询用户地址
-     * @param id
+     * @param userId
      * @return
      * @throws Exception
      */
-    public List<UserAddress> queryUserAdressList(Integer id) ;
+    public List<UserAddress> queryUserAdressList(Integer userId) ;
     /**
      * 给用户添加地址
      * @param id

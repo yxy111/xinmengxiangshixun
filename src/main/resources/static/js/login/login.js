@@ -37,10 +37,11 @@ function login() {
         "data": form,
     };
 
+    console.log(settings.url);
+
     $.ajax(settings).done(function (response) {
         var result = eval("(" + response + ")");
         if (result.status === 1) {
-            console.log("ok")
             window.location.href = contextPath + "/home/index";
         } else {
             showMessage(result.message)
