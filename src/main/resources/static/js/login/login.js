@@ -6,13 +6,13 @@ function login(){
     var loginName=$("#loginName").val();
     var password=$("#password").val();
     $.ajax({
-        url:contextPath+"/Login",
+        url:contextPath+"/login",
         method:"post",
-        data:{loginName:loginName,password:password,action:"login"},
+        data:{loginName:loginName,password:password},
         success:function(jsonStr){
             var result=eval("("+jsonStr+")");
             if(result.status==1){
-                window.location.href=contextPath+"/Home?action=index";
+                window.location.href=contextPath+"/home/index";
             }else{
                 showMessage(result.message)
             }

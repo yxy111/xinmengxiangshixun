@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%
     if(request.getSession().getAttribute("loginUser")!=null){
-        response.sendRedirect(request.getContextPath()+"/Home?action=index");
+        response.sendRedirect(request.getContextPath()+"/home/index");
     }
 %>
 <head>
@@ -16,7 +16,7 @@
 <!--Begin Login Begin-->
 <div class="log_bg">	
     <div class="top">
-        <div class="logo"><a href="${ctx}/Home?action=index"><img src="${ctx}/images/logo.png" /></a></div>
+        <div class="logo"><a href="${ctx}/home/index"><img src="${ctx}/images/logo.png" /></a></div>
     </div>
 	<div class="login">
     	<div class="log_img"><img src="${ctx}/images/l_img.png" width="611" height="425" /></div>
@@ -27,7 +27,7 @@
               	<td width="55">&nbsp;</td>
                 <td>
                 	<span class="fl" style="font-size:24px;">登录</span>
-                    <span class="fr">还没有商城账号，<a href="${ctx}/Register?action=toRegister" style="color:#ff4e00;">立即注册</a></span>
+                    <span class="fr">还没有商城账号，<a href="${ctx}/register" style="color:#ff4e00;">立即注册</a></span>
                 </td>
               </tr>
               <tr height="70">
