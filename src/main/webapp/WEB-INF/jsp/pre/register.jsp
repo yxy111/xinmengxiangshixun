@@ -10,7 +10,7 @@
 <!--Begin Login Begin-->
 <div class="log_bg">
     <div class="top">
-        <div class="logo"><a href="${ctx}/Home?action=index"><img src="${ctx}/images/logo.png"/></a></div>
+        <div class="logo"><a href="${ctx}/home/index"><img src="${ctx}/images/logo.png"/></a></div>
     </div>
     <div class="regist">
         <div class="log_img"><img src="${ctx}/images/l_img.png" width="611" height="425"/></div>
@@ -21,7 +21,7 @@
                         <td width="95">&nbsp;</td>
                         <td>
                             <span class="fl" style="font-size:24px;">注册</span>
-                            <span class="fr">已有商城账号，<a href="${ctx}/Login?action=toLogin" style="color:#ff4e00;">我要登录</a></span>
+                            <span class="fr">已有商城账号，<a href="${ctx}/login" style="color:#ff4e00;">我要登录</a></span>
                         </td>
                     </tr>
                     <tr height="50">
