@@ -4,7 +4,6 @@ package cn.easybuy.controller;
 import cn.easybuy.pojo.User;
 import cn.easybuy.pojo.vo.Pager;
 import cn.easybuy.service.UserService;
-import cn.easybuy.utils.ReturnResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

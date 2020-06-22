@@ -46,6 +46,7 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
 
     }
 
+    //  新闻分页查询
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Map<String, Object> queryNewsList(Integer currentPageNo,

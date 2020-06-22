@@ -24,6 +24,6 @@ import java.util.List;
 public interface OrderMapper extends BaseMapper<Order> {
 
 
-    // //个人订单分页查询  根据用户id
+    // 个人订单分页查询根据用户id  或全部
     List<OrderVo> getOneOrder1(@Param(Constants.WRAPPER) QueryWrapper<OrderVo> queryWrapper, Page<OrderVo> page);
 }

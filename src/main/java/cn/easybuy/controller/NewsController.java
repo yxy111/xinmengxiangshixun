@@ -31,6 +31,7 @@ public class NewsController {
     @Autowired
     private NewsServiceImpl newsService;
 
+    //新闻分页查询
     @GetMapping("allnew")
     public  String allnews(Integer currentPage, Model model)
     {
@@ -40,6 +41,7 @@ public class NewsController {
         return  "/backend/news/newsList";
 
     }
+    //新闻详情
     @GetMapping("getnoe")
     public  String getnoe(Integer id, Model model)
     {
@@ -48,6 +50,9 @@ public class NewsController {
         return  "/backend/news/newsDetail";
 
     }
+
+
+
 
 
 }

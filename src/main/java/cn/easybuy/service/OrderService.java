@@ -47,4 +47,7 @@ public interface OrderService extends IService<Order> {
 
     //  //全部订单
     Map<String, Object> getAllOrder(Integer currentPage);
+
+    //  订单详情
+    Map<String, Object> orderDetails(Integer orderId);
 }

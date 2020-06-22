@@ -1,6 +1,7 @@
 package cn.easybuy.controller;
 
 
+import cn.easybuy.pojo.News;
 import cn.easybuy.pojo.Order;
 import cn.easybuy.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,15 @@ public class OrderController {
         return "/backend/order/orderList";
     }
 
+    //订单详情
+    @GetMapping("orderDetails")
+    public  String orderDetails(Integer orderId, Model model)
+    {
+        Map<String,Object> map= orderService.orderDetails(orderId);
+        model.addAttribute("orderList", map.get("orderList"));
+        return "/backend/order/orderList";
 
-    //订单明细
+    }
 
 
 

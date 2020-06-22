@@ -97,4 +97,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         map.put("pager", pager);
         return map;
     }
+
+    //  订单详情
+    @Override
+    public Map<String, Object> orderDetails(Integer orderId) {
+        QueryWrapper<OrderVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", orderId);
+        Page<OrderVo> page = new Page<>();
+        List<OrderVo> orderList = baseMapper.getOneOrder1(queryWrapper,page);
+        Map<String, Object> map = new HashMap<>();
+        map.put("orderList", orderList);
+        return null;
+    }
 }
