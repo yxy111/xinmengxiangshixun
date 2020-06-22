@@ -84,7 +84,7 @@
         <!--End Banner End-->
         <div class="inews">
             <div class="news_t">
-                <span class="fr"><a href="${ctx}/admin/news?action=queryNewsList">更多 ></a></span>新闻资讯
+                <span class="fr"><a href="${ctx}/admin/news/allnew">更多 ></a></span>新闻资讯
             </div>
             <ul>
                 <c:forEach items="${news}" var="temp">
