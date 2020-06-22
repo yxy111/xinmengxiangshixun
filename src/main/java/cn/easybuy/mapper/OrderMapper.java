@@ -1,9 +1,16 @@
 package cn.easybuy.mapper;
 
 import cn.easybuy.pojo.Order;
+import cn.easybuy.pojo.vo.OrderVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +24,6 @@ import org.springframework.stereotype.Repository;
 public interface OrderMapper extends BaseMapper<Order> {
 
 
-
+    // //个人订单分页查询  根据用户id
+    List<OrderVo> getOneOrder1(@Param(Constants.WRAPPER) QueryWrapper<OrderVo> queryWrapper, Page<OrderVo> page);
 }

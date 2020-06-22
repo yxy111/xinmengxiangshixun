@@ -7,6 +7,7 @@ import cn.easybuy.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,4 +41,10 @@ public interface OrderService extends IService<Order> {
     public void deleteById(Integer id);
 
     public Order getOrderById(Integer id) ;
+
+    //个人订单分页查询  根据用户id
+    Map<String, Object> getOneOrder(Integer id, Integer currentPage);
+
+    //  //全部订单
+    Map<String, Object> getAllOrder(Integer currentPage);
 }

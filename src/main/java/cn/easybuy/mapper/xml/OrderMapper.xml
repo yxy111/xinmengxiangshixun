@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.easybuy.mapper.OrderMapper">
-
+    <resultMap type="cn.easybuy.pojo.vo.OrderVo" id="all">
+        <id column="id" property="id"/>
+        <result column="loginName" property="loginName"/>
+        <result column="serialNumber" property="serialNumber"/>
+        <result column="userAddress" property="userAddress"/>
+        <result column="cost" property="cost"/>
+        <collection property="list" ofType="cn.easybuy.pojo.vo.commodityVo">
+            <id column="id1" property="id1"/>
+            <result column="name" property="name"/>
+            <result column="fileName" property="fileName"/>
+            <result column="quantity" property="quantity"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+    <select id="getOneOrder1" resultMap="all">
+SELECT
+o1.id,
+o1.loginName,
+o1.serialNumber,
+o1.userAddress,
+o1.cost,
+p1.name,
+p1.fileName,
+o2.quantity,
+p1.price,
+p1.id as id1
+FROM easybuy_order o1
+LEFT join easybuy_order_detail o2 on o1.id=o2.orderId
+LEFT join easybuy_product p1   on  o2.productId=p1.id
+${ew.customSqlSegment}
+    </select>
 </mapper>
