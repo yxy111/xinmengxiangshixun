@@ -57,7 +57,7 @@ public class ProductController {
         return ReturnResult.success("删除成功");
     }
 
-    @PostMapping("{id}")
+    @GetMapping("{id}")
     public String product(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getProductById(id);
         List<ProductCategoryVo> vos = productCategoryService.queryAllProductCategoryList();
