@@ -1,53 +1,50 @@
 //分类添加
 function toAddProductCategory() {
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
-        data: {
-            action: "toAddProductCategory"
-        },
+        url: contextPath + "/product-category/add",
+        method: "get",
         success: function (jsonStr) {
             $("#addProductCategory").html(jsonStr);
             $("input[name=select]").removeAttr("checked");
         }
     });
 }
+
 function addProductCategory() {
     var productCategoryLevel1 = $("#productCategoryLevel1").val();
     var productCategoryLevel2 = $("#productCategoryLevel2").val();
     var name = $("#name").val();
     var type = $("#type").val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
+        url: contextPath + "/product-category/add",
         method: "post",
         data: {
-            action: "addProductCategory",
             name: name,
             type: type,
             productCategoryLevel1: (productCategoryLevel1 == null || productCategoryLevel1 == "") ? 0 : productCategoryLevel1,
             productCategoryLevel2: (productCategoryLevel2 == null || productCategoryLevel2 == "") ? 0 : productCategoryLevel2
         },
         success: function (jsonStr) {
-            var result = eval("(" + jsonStr + ")");
+            var result = jsonStr;
+            // var result = eval("(" + jsonStr + ")");
             //状态判断
             if (result.status == 1) {
                 window.location.reload();
+            } else {
+                showMessage(result.message)
             }
         }
     });
 }
+
 //查询下级分类
 function queryProductCategoryList(obj, selectId) {
     var parentId = $(obj).val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
-        data: {
-            action: "queryProductCategoryList",
-            parentId: parentId
-        },
+        url: contextPath + "/product-category/child?parentId=" + parentId,
+        method: "get",
         success: function (jsonStr) {
-            var result = eval("(" + jsonStr + ")");
+            var result = jsonStr;
             //状态判断
             if (result.status == 1) {
                 var options = "<option value=''>" + "请选择..." + "</option>";
@@ -60,21 +57,19 @@ function queryProductCategoryList(obj, selectId) {
         }
     });
 }
+
 //修改
 function toUpdateProductCategoryList(obj) {
     var id = $(obj).val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
-        method: "post",
-        data: {
-            action: "toUpdateProductCategory",
-            id: id
-        },
+        url: contextPath + "/product-category/update/" + id,
+        method: "get",
         success: function (jsonStr) {
             $("#addProductCategory").html(jsonStr);
         }
     });
 }
+
 //修改
 function saveOrUpdate() {
     var id = $("#id").val();
@@ -84,6 +79,7 @@ function saveOrUpdate() {
         modifyProductCategory();
     }
 }
+
 function modifyProductCategory() {
     var id = $("#id").val();
     var productCategoryLevel1 = $("#productCategoryLevel1").val();
@@ -91,10 +87,9 @@ function modifyProductCategory() {
     var name = $("#name").val();
     var type = $("#type").val();
     $.ajax({
-        url: contextPath + "/admin/productCategory",
+        url: contextPath + "/product-category/update",
         method: "post",
         data: {
-            action: "modifyProductCategory",
             id: id,
             name: name,
             type: type,
@@ -102,14 +97,18 @@ function modifyProductCategory() {
             productCategoryLevel2: (productCategoryLevel2 == null || productCategoryLevel2 == "") ? 0 : productCategoryLevel2
         },
         success: function (jsonStr) {
-            var result = eval("(" + jsonStr + ")");
+            var result = jsonStr;
+            // var result = eval("(" + jsonStr + ")");
             //状态判断
             if (result.status == 1) {
                 window.location.reload();
+            } else {
+                showMessage(result.message);
             }
         }
     });
 };
+
 //选择商品分类级别
 function selectProductCategoryLevel(obj) {
     var level = $(obj).val();
@@ -118,34 +117,33 @@ function selectProductCategoryLevel(obj) {
         $('#productCategoryLevel2').parent().parent().hide();
     } else if (level == 2) {
         $('#productCategoryLevel1').parent().parent().show();
+        $('#productCategoryLevel2').parent().parent().hide();
     } else {
         $('#productCategoryLevel1').parent().parent().show();
         $('#productCategoryLevel2').parent().parent().show();
     }
 }
+
 //删除商品分类
-function deleteProductCategory(id,type) {
- var bool=window.confirm("确认删除此分类信息么?");
-	if(bool){
-		$.ajax({
-	        url: contextPath + "/admin/productCategory",
-	        method: "post",
-	        data: {
-	            id: id,
-	            type: type,
-	            action: "deleteProductCategory"
-	        },
-	        success: function (jsonStr) {
-	            var result = eval("(" + jsonStr + ")");
-	            if (result.status == 1) {
-	                window.location.reload();
-	            }else{
-	            	showMessage(result.message);
-	            }
-	        }
-	    });
-	}
+function deleteProductCategory(id, type) {
+    var bool = window.confirm("确认删除此分类信息么?");
+    if (bool) {
+        $.ajax({
+            url: contextPath + "/product-category/delete?id=" + id + "&type=" + type,
+            method: "get",
+            success: function (jsonStr) {
+                // var result = eval("(" + jsonStr + ")");
+                var result = jsonStr;
+                if (result.status == 1) {
+                    window.location.reload();
+                } else {
+                    showMessage(result.message);
+                }
+            }
+        });
+    }
 }
+
 //商品发布的是很检查相关字段
 function checkProduct() {
     var productCategoryLevel1 = $("#productCategoryLevel1").val();
@@ -175,12 +173,12 @@ function checkProduct() {
         return false;
     }
 }
+
 //检查用户
 function deleteById(id) {
-    if(confirm("确定删除吗？"))
-    {
+    if (confirm("确定删除吗？")) {
         var settings = {
-            "url": "http://localhost:8001/product/deleteOneProduct/"+id,
+            "url": "http://localhost:8001/product/deleteOneProduct/" + id,
             "method": "GET"
         };
         $.ajax(settings).done(function (response) {
@@ -191,6 +189,7 @@ function deleteById(id) {
     }
 
 }
+
 /**
  * 检查用户
  */
@@ -209,8 +208,8 @@ function checkUser() {
         showMessage("请填写登录用户名");
         return false;
     }
-    
-    if(loginName.length<2 || loginName>10){
+
+    if (loginName.length < 2 || loginName > 10) {
         showMessage("登录名不能小于两个字符或者大于十个字符.");
         return false;
     }
@@ -219,38 +218,38 @@ function checkUser() {
         showMessage("请填写真实姓名");
         return false;
     }
-    if(id==null || id=="" || id==0){
-    	if (password == null || password == "") {
+    if (id == null || id == "" || id == 0) {
+        if (password == null || password == "") {
             showMessage("请填写密码");
             return false;
         }
-        
-        if (password !=repPassword) {
+
+        if (password != repPassword) {
             showMessage("两次输入密码不一致");
             return false;
         }
     }
 
-    if(email!=null && email!="" && !checkMail(email)){
-    	showMessage("邮箱格式不正确");
+    if (email != null && email != "" && !checkMail(email)) {
+        showMessage("邮箱格式不正确");
         return false;
     }
     //验证邮箱格式
-    if(mobile!=null && mobile!="" && !checkMobile(mobile)){
-    	showMessage("手机格式不正确");
+    if (mobile != null && mobile != "" && !checkMobile(mobile)) {
+        showMessage("手机格式不正确");
         return false;
     }
-     //验证邮箱格式
-    if(identityCode!=null && identityCode!="" && !checkIdentityCode(identityCode)){
-    	showMessage("身份证号格式不正确");
+    //验证邮箱格式
+    if (identityCode != null && identityCode != "" && !checkIdentityCode(identityCode)) {
+        showMessage("身份证号格式不正确");
         return false;
     }
     return true;
 }
 
 function addUser() {
-    if(!checkUser()){
-    	return false;
+    if (!checkUser()) {
+        return false;
     }
     var loginName = $("input[name='loginName']").val();
     var userName = $("input[name='userName']").val();
@@ -264,75 +263,77 @@ function addUser() {
         url: contextPath + "/admin/user/updeteuser",
         method: "post",
         data: {
-           id: id,
-           action: "updateUser",
-           loginName: loginName,
-           userName: userName,
-           identityCode: identityCode,
-           email: email,
-           mobile: mobile,
-           type: type,
-           password:password
+            id: id,
+            action: "updateUser",
+            loginName: loginName,
+            userName: userName,
+            identityCode: identityCode,
+            email: email,
+            mobile: mobile,
+            type: type,
+            password: password
         },
         success: function (jsonStr) {
             var result = eval("(" + jsonStr + ")");
             if (result.status == 1) {
-                window.location.href=contextPath+"/admin/user/list";
-            }else{
-            	showMessage(result.message);
+                window.location.href = contextPath + "/admin/user/list";
+            } else {
+                showMessage(result.message);
             }
         }
     });
 }
+
 /**
  * 删除用户
  * @param id
  */
 function deleteUserId(id) {
-	// if(confirm("确认删除此用户信息么?")){
+    // if(confirm("确认删除此用户信息么?")){
 
-        $.post("http://localhost:8001/admin/user/delete",{id:id},function(result){
-            window.confirm(result.message);
-        });
-		// $.ajax({
-	    //     url: "http://localhost:8001/admin/user/delete",
-	    //     method: "post",
-	    //     data: {
-	    //         id: id,
-	    //     },
-	    //     success: function (jsonStr) {
-	    //         var result = eval("(" + jsonStr + ")");
-	    //         if (result.status == 1) {
-	    //             window.location.reload();
-	    //         }
-	    //     }
-	    // });
-	// }
+    $.post("http://localhost:8001/admin/user/delete", {id: id}, function (result) {
+        window.confirm(result.message);
+    });
+    // $.ajax({
+    //     url: "http://localhost:8001/admin/user/delete",
+    //     method: "post",
+    //     data: {
+    //         id: id,
+    //     },
+    //     success: function (jsonStr) {
+    //         var result = eval("(" + jsonStr + ")");
+    //         if (result.status == 1) {
+    //             window.location.reload();
+    //         }
+    //     }
+    // });
+    // }
 }
 
 
 function checkMail(mail) {
-  var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (filter.test(mail)) 
-	  return true;
-  else {
-	 return false;}
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(mail))
+        return true;
+    else {
+        return false;
+    }
 }
 
 function checkMobile(phone) {
-  var filter  = /^\d{5,11}$/;
-  if (filter.test(phone)) 
-	  return true;
-  else {
-	 return false;
-  }
+    var filter = /^\d{5,11}$/;
+    if (filter.test(phone))
+        return true;
+    else {
+        return false;
+    }
 }
 
 function checkIdentityCode(identityCode) {
-  var filter  = /^\w{18}$/;
-  if (filter.test(identityCode)) 
-	  return true;
-  else {
-	 return false;
-  }
+    var filter = /^\w{18}$/;
+    if (filter.test(identityCode))
+        return true;
+    else {
+        return false;
+    }
 }
