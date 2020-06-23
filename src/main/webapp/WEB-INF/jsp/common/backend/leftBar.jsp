@@ -27,7 +27,7 @@
         <ul>
             <li><a href="${ctx}/admin/productCategory?action=index" <c:if test="${menu==4}"> class="now" </c:if>>分类管理</a></li>
             <li><a href="${ctx}/product/list"  <c:if test="${menu==5}"> class="now" </c:if>>商品管理</a></li>
-            <li><a href="${ctx}/admin/product?action=toAddProduct" <c:if test="${menu==6}"> class="now" </c:if>>商品上架</a></li>
+            <li><a href="${ctx}/product/add" <c:if test="${menu==6}"> class="now" </c:if>>商品上架</a></li>
         </ul>
     </div>
     </c:if>
