@@ -88,10 +88,10 @@
             <span class="fl">你好，请<a href="${ctx}/login"  style="color:#ff4e00;">登录</a>&nbsp;<a href="${ctx}/register" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
           </c:if>
           <c:if test="${sessionScope.loginUser!=null}">
-            <span class="fl"><a href="${ctx}/admin/user/getone">${sessionScope.loginUser.userName}</a>&nbsp;|&nbsp;<a href="${ctx}/admin/order?action=index&userId=${sessionScope.loginUser.id}">我的订单</a>&nbsp;</span>
+            <span class="fl"><a href="${ctx}/admin/user/getone">${sessionScope.loginUser.userName}</a>&nbsp;|&nbsp;<a href="${ctx}/admin/order/personal?action=index&userId=${sessionScope.loginUser.id}">我的订单</a>&nbsp;</span>
           </c:if>
            <c:if test="${sessionScope.loginUser!=null && sessionScope.loginUser.type==1}">
-            <span class="fl">|&nbsp;<a href="${ctx}/admin/product?action=index&userId=${sessionScope.loginUser.id}">后台管理</a>&nbsp;</span>
+            <span class="fl">|&nbsp;<a href="${ctx}/admin/user/getone?action=index&userId=${sessionScope.loginUser.id}">后台管理</a>&nbsp;</span>
           </c:if>
            <c:if test="${sessionScope.loginUser!=null}">
              <span class="fl">|&nbsp;<a href="${ctx}/logout" >注销</a></span>
