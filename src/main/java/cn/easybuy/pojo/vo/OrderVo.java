@@ -6,6 +6,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+
+/**
+ * 订单封装对象
+ *
+ */
 @Data
 public class OrderVo implements Serializable {
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>
- * 服务实现类
+ * 用户模块管理
  * </p>
  *
  * @author 罗阳
@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-
+    //添加用户
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean add(User user) {
@@ -35,6 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+    //根据id跟新用户
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean update(User user) {
@@ -46,6 +47,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+    //根据id删除用户
     @Override
     public boolean deleteUserById(Integer userId) {
         int i = baseMapper.deleteById(userId);
@@ -56,12 +58,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
+    //根据id查询单个用户信息
     @Override
     public User getUser(Integer userId, String loginName) {
         User user = baseMapper.selectById(userId);
         return user;
     }
 
+    //分页查询用户信息
     @Override
     public List<User> getUserList(Integer currentPageNo, Integer pageSize) {
         if (currentPageNo == null) {

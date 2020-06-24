@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 /**
  * 登陆模块
  *
- * @author 李凤强
+ * @author 何沛铮
  */
 @Controller
 public class LoginRegistrationController {
@@ -41,6 +41,7 @@ public class LoginRegistrationController {
         return "redirect:/login";
     }
 
+    //登录验证
     @ResponseBody
     @PostMapping("login")
     public ReturnResult login(String loginName, String password, HttpSession session) {
@@ -53,6 +54,7 @@ public class LoginRegistrationController {
         return ReturnResult.err("登陆失败，用户名或密码错误");
     }
 
+    //注册
     @ResponseBody
     @PostMapping("register")
     public ReturnResult register(User user) {

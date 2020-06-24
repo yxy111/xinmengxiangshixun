@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  新闻服务
+ *  新闻管理模块服务
  * </p>
  *
  * @author 罗阳
