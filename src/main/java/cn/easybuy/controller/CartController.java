@@ -22,7 +22,10 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ * 购物车模块
+ *
  * @author 李凤强
+ * @since 2020-06-22
  */
 @Controller
 @RequestMapping("cart")
@@ -45,6 +48,12 @@ public class CartController {
     @Resource
     OrderDetailMapper orderDetailMapper;
 
+    /**
+     * 购物车，去结算的界面
+     *
+     * @param model
+     * @return
+     */
     @GetMapping
     public String cart(Model model) {
         List<ProductCategoryVo> vos = productCategoryService.queryAllProductCategoryList();
@@ -52,11 +61,23 @@ public class CartController {
         return "/pre/settlement/toSettlement";
     }
 
+    /**
+     * 购物车结算界面，购物车商品详情界面
+     *
+     * @return
+     */
     @GetMapping("settlement1")
     public String settlement1() {
         return "/pre/settlement/settlement1";
     }
 
+    /**
+     * 购物车结算界面，确认订单信息界面
+     *
+     * @param user  当前登陆的用户，从session中获取
+     * @param model
+     * @return
+     */
     @GetMapping("settlement2")
     public String settlement2(@SessionAttribute("loginUser") User user, Model model) {
         List<UserAddress> addressList = userAddressService.queryUserAdressList(user.getId());
@@ -65,7 +86,15 @@ public class CartController {
     }
 
     /**
-     * 提交订单
+     * 购物车结算界面，提交订单的请求，因为post请求会引发编码格式的异常，所以我直接用get请求
+     *
+     * @param user       SessionAttribute 当前登陆的用户
+     * @param cart       SessionAttribute 购物车操作对象
+     * @param addressId  收获地址id
+     * @param newAddress 新的收获地址
+     * @param newRemark  新的收货地址的备注
+     * @param model
+     * @return
      */
     @GetMapping("settlement3")
     public String settlement3(
@@ -105,10 +134,12 @@ public class CartController {
     }
 
     /**
-     * 添加到购物车
+     * 添加商品到购物车
      *
+     * @param cart     SessionAttribute 购物车操作对象
      * @param entityId 商品id product.i
      * @param quantity 商品数量
+     * @return 返回json数据 {@link ReturnResult}
      */
     @ResponseBody
     @GetMapping("add")
@@ -124,7 +155,12 @@ public class CartController {
     }
 
     /**
-     * 修改购物车里的商品
+     * 修改购物车的商品数量
+     *
+     * @param cart     SessionAttribute 购物车操作对象
+     * @param entityId 商品id
+     * @param quantity 商品数量 数量为0时从购物车中移除该商品
+     * @return 返回json数据 {@link ReturnResult}
      */
     @ResponseBody
     @GetMapping("mod")
@@ -146,6 +182,8 @@ public class CartController {
 
     /**
      * 刷新购物车，刷新searchBar.jsp页面
+     *
+     * @return
      */
     @GetMapping("searchBar")
     public String searchBar() {

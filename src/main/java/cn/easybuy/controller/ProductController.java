@@ -29,6 +29,7 @@ import java.util.UUID;
  * <p>
  * 前端控制器
  * </p>
+ *
  * @author 罗阳
  * @since 2020-06-20
  */
@@ -42,38 +43,37 @@ public class ProductController {
 
     //分页查询商品信息
     @GetMapping("list")
-    public String hello(Model model, @RequestParam(required = false) Integer currentPage)
-    {
+    public String hello(Model model, @RequestParam(required = false) Integer currentPage) {
         if (currentPage == null) {
-            currentPage=1;
+            currentPage = 1;
         }
         Page<Product> page = new Page<>(currentPage, 5);
-        productService.page(page,null);
+        productService.page(page, null);
         List<Product> list = page.getRecords();
-        Pager pager = new Pager(page.getPages(), 5, currentPage,"product/list?");
+        Pager pager = new Pager(page.getPages(), 5, currentPage, "product/list?");
         model.addAttribute("list", list);
         model.addAttribute("pager", pager);
         return "/backend/product/productList";
     }
+
     //删除一个商品
     @ResponseBody
     @GetMapping("deleteOneProduct/{id}")
-    public ReturnResult deleteOneProduct(@PathVariable Integer id)
-    {
+    public ReturnResult deleteOneProduct(@PathVariable Integer id) {
         boolean b = productService.removeById(id);
         return ReturnResult.success("删除成功");
     }
+
     //商品信息回显
     @GetMapping("huixian/{id}")
-    public String deleteOneProduct(@PathVariable Integer id,Model model)
-    {
+    public String deleteOneProduct(@PathVariable Integer id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
 
         //一级分类
         QueryWrapper<ProductCategory> categoryQueryWrapper1 = new QueryWrapper<>();
         categoryQueryWrapper1.eq("type", 1);
-         List<ProductCategory> productCategoryList1 = productCategoryService.list(categoryQueryWrapper1);
+        List<ProductCategory> productCategoryList1 = productCategoryService.list(categoryQueryWrapper1);
         model.addAttribute("productCategoryList1", productCategoryList1);
 
         //一级分类
@@ -92,7 +92,7 @@ public class ProductController {
 
     //商品修改或添加
     @PostMapping("addorupdate")
-    public String addorupdate(Product product, MultipartFile  photo, HttpServletRequest request) {
+    public String addorupdate(Product product, MultipartFile photo, HttpServletRequest request) {
 
         //使用UUID给图片重命名，并去掉四个“-”
         String name = UUID.randomUUID().toString().replaceAll("-", "");
@@ -103,7 +103,7 @@ public class ProductController {
         System.out.println(url);
         //以绝对路径保存重名命后的图片
         try {
-            photo.transferTo(new File(url+"/"+name + "." + ext));
+            photo.transferTo(new File(url + "/" + name + "." + ext));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,17 +113,16 @@ public class ProductController {
         if (product.getId() != null) {
             //修改
             productService.updateById(product);
-        }
-        else{
+        } else {
             //添加
             productService.save(product);
         }
         return "redirect:/product/list";
     }
+
     //跳转到商品上架页
     @GetMapping("add")
-    public  String toaddpage(Model model)
-    {
+    public String toaddpage(Model model) {
         //1级分类
         QueryWrapper<ProductCategory> categoryQueryWrapper1 = new QueryWrapper<>();
         categoryQueryWrapper1.eq("type", 1);
@@ -143,6 +142,14 @@ public class ProductController {
         return "/backend/product/toAddProduct";
     }
 
+    /**
+     * 根据id查看商品详情
+     * 作者：李凤强
+     *
+     * @param id    商品id
+     * @param model
+     * @return
+     */
     @GetMapping("{id}")
     public String product(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getProductById(id);
@@ -152,6 +159,15 @@ public class ProductController {
         return "/pre/product/productDeatil";
     }
 
+    /**
+     * 按分类查询所有商品
+     * 作者：李凤强
+     *
+     * @param category 分类id
+     * @param level    分类级别
+     * @param model
+     * @return
+     */
     @GetMapping
     public String all(Integer category, Integer level, Model model) {
         List<Product> products = productService.getProductList(category, level);
@@ -162,6 +178,14 @@ public class ProductController {
         return "/pre/product/queryProductList";
     }
 
+    /**
+     * 按商品名模糊搜索商品
+     * 作者：李凤强
+     *
+     * @param keyWord 搜索关键字
+     * @param model
+     * @return
+     */
     @GetMapping("search")
     public String search(String keyWord, Model model) {
         List<ProductCategoryVo> vos = productCategoryService.queryAllProductCategoryList();

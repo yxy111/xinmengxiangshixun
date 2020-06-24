@@ -60,6 +60,7 @@ public interface ProductCategoryService extends IService<ProductCategory> {
     /**
      * 查询全部的商品分类
      * 作者：李凤强
+     * @return
      */
     public List<ProductCategoryVo> queryAllProductCategoryList();
 }

@@ -25,8 +25,12 @@ import java.util.List;
  *
  * @author 罗阳
  * @since 2020-06-20
- * <p>
- * 最后修改：李凤强 2020年6月23日
+ *
+ * <b>
+ * 商品分类管理模块
+ * 最后一次修改：李凤强
+ * 2020年6月23日
+ * </b>
  */
 @Controller
 @RequestMapping("/product-category")
@@ -37,6 +41,13 @@ public class ProductCategoryController {
     @Resource
     ProductMapper productMapper;
 
+    /**
+     * 分页查询所以商品分类
+     *
+     * @param model
+     * @param currentPage 当前页码
+     * @return
+     */
     @GetMapping("list")
     public String list(Model model, @RequestParam(required = false) Integer currentPage) {
         if (currentPage == null) {
@@ -66,6 +77,10 @@ public class ProductCategoryController {
 
     /**
      * 修改分类的页面
+     *
+     * @param id    分类id {@link ProductCategory#getId()}
+     * @param model
+     * @return
      */
     @GetMapping("update/{id}")
     public String update(@PathVariable("id") Integer id, Model model) {
@@ -88,6 +103,9 @@ public class ProductCategoryController {
 
     /**
      * 添加分类的页面
+     *
+     * @param model
+     * @return
      */
     @GetMapping("add")
     public String add(Model model) {
@@ -105,7 +123,13 @@ public class ProductCategoryController {
     }
 
     /**
-     * 添加分类的提交
+     * 提交添加分类的请求
+     *
+     * @param name                  类别名称
+     * @param type                  分类级别 {@link ProductCategory#getType()}
+     * @param productCategoryLevel1 父类一级id
+     * @param productCategoryLevel2 父类二级id
+     * @return 返回json数据 {@link ReturnResult}
      */
     @ResponseBody
     @PostMapping("add")
@@ -126,7 +150,14 @@ public class ProductCategoryController {
     }
 
     /**
-     * 修改分类的提交
+     * 提交修改分类的请求
+     *
+     * @param id                    分类id，用于按id修改分类
+     * @param name                  新的分类名称
+     * @param type                  分类级别，用于检查是否有子类
+     * @param productCategoryLevel1 父类一级id
+     * @param productCategoryLevel2 父类二级id
+     * @return 返回json数据 {@link ReturnResult}
      */
     @ResponseBody
     @PostMapping("update")
@@ -150,7 +181,11 @@ public class ProductCategoryController {
     }
 
     /**
-     * 删除分类
+     * 提交删除分类的请求
+     *
+     * @param id   分类id，用于按id删除 & 判断这个分类是否有商品
+     * @param type 分类级别，用于判断是否有子分类
+     * @return {@link ReturnResult} 如果这个分类下有子分类或有商品，都不能删除
      */
     @ResponseBody
     @GetMapping("delete")
